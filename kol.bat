@@ -1,0 +1,2 @@
+fbc koldom.bas
+pause
