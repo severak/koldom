@@ -1,8 +1,15 @@
 function choice(ch)
   rows,cols=getwidth()
-  locate(rows-#ch-1,1)
+  cnt=0
   for k,v in pairs(ch) do
+    cnt=cnt+1
+  end
+  li=rows-cnt-1
+  for k,v in pairs(ch) do
+    removeline(li)
+    locate(li,1)
     print(" ["..k.."] "..v)
+    li=li+1
   end
   key=""
   while (not ch[key]) do
@@ -25,10 +32,43 @@ function asciiplay(f)
   end
 end
 
-asciiplay("start.txt")
+function removeline(n)
+  r,c=getwidth()
+  locate(n,1)
+  print(string.rep(" ",c))
+end
 
-k=choice{
-  ["a"]="A",
-  ["b"]="B"
-}
-print(k)
+function subtitle(text)
+  r,c=getwidth()
+  removeline(r-1)
+  locate(r-1,2)
+  print(text)
+  sleep(2000)
+end
+
+function pause()
+  r,c=getwidth()
+  removeline(r)
+  locate(r,1)
+  print("stisknete cokoliv pro pokracovani...")
+  getkey() 
+end
+
+function background(f)
+  cls()
+  for l in io.lines(f) do
+    print(l)
+  end
+end
+
+--asciiplay("start.txt")
+
+--background("txt/afrika.txt")
+
+--pause()
+
+--subtitle("AA")
+--subtitle("B")
+
+--k=choice{["a"]="A",["b"]="B"}
+--print(k)
