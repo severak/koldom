@@ -35,21 +35,22 @@ end
 function removeline(n)
   r,c=getwidth()
   locate(n,1)
-  print(string.rep(" ",c))
+  print(string.rep(" ",c-1))
 end
 
-function subtitle(text)
+function subtitle(text,int)
+  sl=int or 3500
   r,c=getwidth()
   removeline(r-1)
   locate(r-1,2)
   print(text)
-  sleep(2000)
+  sleep(sl)
 end
 
 function pause()
   r,c=getwidth()
-  removeline(r)
-  locate(r,1)
+  removeline(r-1)
+  locate(r-1,1)
   print("stisknete cokoliv pro pokracovani...")
   getkey() 
 end
