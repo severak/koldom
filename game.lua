@@ -5,15 +5,19 @@ map={
   },
   vlecka={
     bck="txt/vlecka.txt",
+    action=function()
+      subtitle("tady bysme nemeli zbytecne lizt....")
+      subtitle("nebo nas neco prejede")
+    end,
     exits={s="hriste"}
   },
   vratnice={
     bck="txt/vratnice.txt",
-    exits={j="hriste"}
+    exits={j="hriste",z="kolektiv"}
   },
   kolektiv={
-    bck="",
-    exits={}
+    bck="txt/kolektiv.txt",
+    exits={v="vratnice"}
   }
 }
 
@@ -27,12 +31,7 @@ function start()
     k="konec"
   }
   if v=="n" then
-    cls()
-    intro()
-    game={place="hriste"}
-    main(game)
-  elseif v=="p" then
-    game={place="hriste"}
+    game={place="hriste",visited={}}
     main(game)
   else
     print("konec")
@@ -67,6 +66,9 @@ function main(state)
   while(jedeme) do
     cls()
     background(map[state.place].bck)
+    if type(map[state.place].action)=="function" then
+      map[state.place].action()  
+    end
     ch=choice{z="zkoumat",n="vzit",p="polozit",j="odejit",k="konec hry"}
     if ch=="j" then
       state.place=odejit(state)
