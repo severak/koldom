@@ -1,13 +1,19 @@
 map={
   hriste={
-    bck="txt/afrika.txt",
-    dirs={d="dovnitr na vratnici"},
-    exits={d="vratnice"}
+    bck="txt/hriste.txt",
+    exits={s="vratnice",j="vlecka"}
+  },
+  vlecka={
+    bck="txt/vlecka.txt",
+    exits={s="hriste"}
   },
   vratnice={
     bck="txt/vratnice.txt",
-    dirs={v="ven"},
-    exits={v="hriste"}
+    exits={j="hriste"}
+  },
+  kolektiv={
+    bck="",
+    exits={}
   }
 }
 
@@ -23,6 +29,9 @@ function start()
   if v=="n" then
     cls()
     intro()
+    game={place="hriste"}
+    main(game)
+  elseif v=="p" then
     game={place="hriste"}
     main(game)
   else
@@ -43,8 +52,14 @@ end
 
 function odejit(state)
   cls()
-  ch=choice(map[state.place].dirs)
-  return map[state.place].exits[ch]    
+  local possible_dirs={s="sever",j="jih",v="vychod",z="zapad",d="dovnitr"}
+  local ldirs={}
+  local exits=map[state.place].exits
+  for k,v in pairs(exits) do
+    ldirs[k]=possible_dirs[k]  
+  end
+  ch=choice(ldirs)
+  return exits[ch]    
 end
 
 function main(state)
