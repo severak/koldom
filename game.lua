@@ -26,9 +26,9 @@ function start()
   print("Koldom")
   print("-====-")
   v=choice{
-    n="nova hra",
-    p="pokracovat v ulozene",
-    k="konec"
+    {"n","nova hra"},
+    {"p","pokracovat v ulozene"},
+    {"k","konec"}
   }
   if v=="n" then
     game={place="hriste",visited={}}
@@ -57,7 +57,7 @@ function odejit(state)
   for k,v in pairs(exits) do
     ldirs[k]=possible_dirs[k]  
   end
-  ch=choice(ldirs)
+  ch=oldchoice(ldirs)
   return exits[ch]    
 end
 
@@ -69,7 +69,13 @@ function main(state)
     if type(map[state.place].action)=="function" then
       map[state.place].action()  
     end
-    ch=choice{z="zkoumat",n="vzit",p="polozit",j="odejit",k="konec hry"}
+    ch=choice{
+	{"z","zkoumat"},
+	{"n","vzit"},
+	{"p","polozit"},
+	{"j","odejit"},
+	{"k","konec hry"}
+	}
     if ch=="j" then
       state.place=odejit(state)
     elseif ch=="k" then

@@ -1,21 +1,27 @@
 function choice(ch)
-  rows,cols=getwidth()
-  cnt=0
-  for k,v in pairs(ch) do
-    cnt=cnt+1
-  end
-  li=rows-cnt-1
-  for k,v in pairs(ch) do
+  local rows,cols=getwidth()
+  local li=rows-(#ch)-1
+  local possible={}
+  for _,v in pairs(ch) do
     removeline(li)
     locate(li,1)
-    print(" ["..k.."] "..v)
+    print(" ["..v[1].."] "..v[2])
     li=li+1
+    possible[v[1]]=true
   end
-  key=""
-  while (not ch[key]) do
+  local key=""
+  while (not possible[key]) do
     key=string.char(getkey())
   end
   return key
+end
+
+function oldchoice(ch)
+	local choices={}
+	for k,v in pairs(ch) do
+		choices[#choices+1]={k,v}
+	end
+	return choice(choices)
 end
 
 function asciiplay(f)
